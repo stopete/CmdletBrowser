@@ -6,10 +6,11 @@ A modern Windows desktop app to **explore, search, and inspect PowerShell comman
 ---
 
 ##
-<img width="1475" height="935" alt="Screenshot 2026-02-26 153801" src="https://github.com/user-attachments/assets/c43eb984-199d-4195-b4ef-fcb2acfe53bc" />
  📸 Screenshot
+<img width="1475" height="935" alt="Screenshot 2026-02-26 153801" src="https://github.com/user-attachments/assets/c43eb984-199d-4195-b4ef-fcb2acfe53bc" />
 
-> If the image doesn't render on GitHub, use the raw URL form: `.../blob/main/images/ModuleBrowser.png?raw=true`.
+
+> 
 
 ---
 
