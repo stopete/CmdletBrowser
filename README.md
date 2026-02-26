@@ -4,7 +4,8 @@ A Windows desktop application that replicates (and improves on) the original Pow
 
 ---
 
-![PowerShell Cmdlet Browser](ModuleBrowser.png)
+<img width="1475" height="935" alt="image" src="https://github.com/user-attachments/assets/ee92ce78-5e83-4e5e-89e4-d0046c08559d" />
+
 
 ---
 
