@@ -1,93 +1,133 @@
-# PowerShell Cmdlet Browser — C# / WPF
 
-A Windows desktop application that replicates (and improves on) the original PowerShell WPF cmdlet browser script, converted to a proper C# .NET project.
+# CmdletBrowser
 
----
-
-<img width="1475" height="935" alt="image" src="https://github.com/user-attachments/assets/ee92ce78-5e83-4e5e-89e4-d0046c08559d" />
-
+A modern Windows desktop app to **explore, search, and inspect PowerShell commands** through a fast, user‑friendly GUI. CmdletBrowser hosts a PowerShell runspace internally so you can browse commands, view syntax, parameters, and examples—without opening a console.
 
 ---
 
-## Requirements
+## 📸 Screenshot
 
-| Requirement | Version |
-|---|---|
-| OS | Windows 10 or 11 (64-bit) |
-| .NET Framework | 4.8 (pre-installed on Windows 10+) |
-| IDE | Visual Studio 2019/2022 **or** VS Code + C# Dev Kit |
-| PowerShell | Windows PowerShell 5.1 (the `System.Management.Automation` reference) |
+![CmdletBrowser UI](images/ModuleBrowser.png)
 
-> **Note:** The app references `System.Management.Automation.dll` from the GAC (Windows PowerShell 5.1).  
-> If the GAC path differs on your machine, update the `<HintPath>` in `CmdletBrowser.csproj`.
+> If the image doesn't render on GitHub, use the raw URL form: `.../blob/main/images/ModuleBrowser.png?raw=true`.
 
 ---
 
-## Project Structure
+## ✨ Features
 
+- **Browse all commands** – cmdlets, functions, and aliases, grouped by module (with a special group for commands that have no module).
+- **Instant filtering** – search by command name, type, and module.
+- **Deep help view** – shows *Synopsis*, *Syntax* (all parameter sets), and *Examples* (when available) by calling `Get-Help` and `Get-Command` under the hood.  
+  > Tip: `Get-Help -Full` returns the most complete help object, including examples and parameter details. citeturn11search61
+- **Parameter grid** – name, type, required/optional, position, pipeline input support, and aliases.
+- **One‑click actions** – copy name, copy syntax, open help window, open online docs.
+- **Export to CSV** – export the currently filtered command list.
+- **Responsive UI** – background runspaces for long operations keep the app snappy.
+
+---
+
+## 🧰 Tech Stack
+
+- **.NET**: `net8.0-windows` WinForms
+- **PowerShell Hosting**: [`Microsoft.PowerShell.SDK`](https://www.nuget.org/packages/Microsoft.PowerShell.SDK/) (PowerShell 7 runtime and APIs) – the SDK targets modern .NET TFMs. citeturn4search8[0m[0m
+
+---
+
+## 🚀 Getting Started
+
+### Prerequisites
+- Windows 10/11
+- Visual Studio 2022 17.x with .NET 8 SDK
+
+### Clone & Open
+```bash
+# using Git
+git clone https://github.com/<your-org>/<your-repo>.git
+cd <your-repo>
 ```
-CmdletBrowser.sln                  ← Visual Studio solution
-CmdletBrowser/
-  CmdletBrowser.csproj             ← Project file (.NET 4.8 WPF)
-  App.xaml / App.xaml.cs           ← WPF Application entry point
-  MainWindow.xaml                  ← Full dark-theme WPF UI
-  MainWindow.xaml.cs               ← All application logic
-  Properties/
-    AssemblyInfo.cs                ← Assembly metadata
+Open the solution in **Visual Studio 2022** and build.
+
+### Restore NuGet packages (with Package Source Mapping enabled)
+If you use **Package Source Mapping**, ensure `nuget.org` is mapped so core packages like `System.Collections.Immutable` can restore. Example `nuget.config` at the solution root:
+
+```xml
+<?xml version="1.0" encoding="utf-8"?>
+<configuration>
+  <packageSources>
+    <clear />
+    <add key="nuget.org" value="https://api.nuget.org/v3/index.json" />
+  </packageSources>
+  <packageSourceMapping>
+    <packageSource key="nuget.org">
+      <package pattern="*" />
+    </packageSource>
+  </packageSourceMapping>
+</configuration>
 ```
+NuGet only searches sources explicitly mapped for a package when Package Source Mapping is enabled; unmapped sources are **not considered**. citeturn5search47turn5search35
 
----
+### First‑run: make Examples appear
+`Get-Help` shows full examples only when local help files are installed. Run this once in **Windows PowerShell 5.1 (Run as Administrator)** to install updatable help for built‑in modules:
 
-## Build & Run
-
-### Visual Studio
-1. Open `CmdletBrowser.sln`.
-2. Set the build target to **x64**.
-3. Press **F5** (Debug) or **Ctrl+F5** (Run without debugger).
-
-### .NET CLI / MSBuild
 ```powershell
-# From the repo root
-dotnet build CmdletBrowser\CmdletBrowser.csproj -c Release
-dotnet run   --project CmdletBrowser\CmdletBrowser.csproj
+Update-Help -Module * -UICulture en-US -Force -ErrorAction SilentlyContinue
+```
+- `Get-Help` uses local help files; otherwise it returns only basic, auto‑generated help. citeturn11search61[0m
+- `Update-Help` downloads and installs the newest help files; elevation is required on PowerShell 5.1. citeturn11search52[0m
+
+> Offline/isolated machines: use `Save-Help` on a connected machine, then `Update-Help -SourcePath` on the target. citeturn11search58
+
+---
+
+## 🖱️ How to Use
+
+1. **Refresh** to load all available commands (cmdlets, functions, aliases).
+2. **Filter** by typing in *Search* and/or selecting a module in the left tree.
+3. Click a command to view **Synopsis**, **Syntax**, **Examples**, and the **Parameters** grid.
+4. Use **Copy Name**, **Copy Syntax**, **Show Help (Window)**, and **Open Online Help** as needed.
+5. Click **Export CSV** to save the current command list.
+
+---
+
+## 📁 Project Structure (high‑level)
+
+```
+src/
+  CmdletBrowser/            # WinForms app
+    MainForm.cs             # UI + event handlers
+    PowerShell helpers      # runspace + Get-Command / Get-Help wrappers
+images/
+  ModuleBrowser.png         # screenshot used by README
 ```
 
 ---
 
-## Features
+## 🔧 Build & Packaging
 
-| Feature | Details |
-|---|---|
-| **Module tree** | Left-side tree groups all loaded modules with count |
-| **Command list** | Filtered list with Name / Module / Type columns |
-| **Live search** | Type to instantly filter commands by name |
-| **Include Functions / Aliases** | Checkboxes to expand beyond Cmdlets |
-| **Synopsis** | One-line description from `Get-Help` |
-| **Syntax** | All parameter sets via `Get-Command -Syntax` |
-| **Parameters grid** | Name, Type, Required, Position, Pipeline, Aliases |
-| **Examples** | Code + remarks from `Get-Help` |
-| **Copy Name / Syntax** | One-click clipboard copy |
-| **Show Help (Window)** | Opens `Get-Help -ShowWindow` (WinPS 5.1) |
-| **Open Online Help** | Opens Microsoft Docs search in browser |
-| **Export CSV** | Saves the current filtered list to CSV |
-| **Dark theme** | VS Code-inspired dark colour scheme |
+- Build in **Release**: `Ctrl+Shift+B` (VS) or `dotnet build -c Release`.
+- Optional single‑file publish:
+  ```bash
+  dotnet publish -c Release -r win-x64 --self-contained false /p:PublishSingleFile=true
+  ```
 
 ---
 
-## Troubleshooting
+## ❓ Troubleshooting
 
-**`System.Management.Automation` not found**  
-Update the `<HintPath>` in `CmdletBrowser.csproj` to match your system:
-```
-C:\Windows\assembly\GAC_MSIL\System.Management.Automation\1.0.0.0__31bf3856ad364e35\System.Management.Automation.dll
-```
-Or find it with:
-```powershell
-[System.Reflection.Assembly]::LoadWithPartialName('System.Management.Automation').Location
-```
+- **Examples show “No examples available.”**  
+  Install/update local help (`Update-Help`), and the app will display examples that modules actually provide. `Get-Help -Full` exposes the examples collection used by the app. citeturn11search61[0mturn11search52[0m
 
-**Help shows "No local synopsis available"**  
-Run `Update-Help -ErrorAction SilentlyContinue` in an elevated PowerShell window to download help files.
+- **Restore fails with “source(s) were not considered: nuget.org.”**  
+  You have Package Source Mapping enabled but didn’t map the package IDs to nuget.org in `nuget.config`. Add a mapping (e.g., `*` → nuget.org). citeturn5search47
 
-**`Get-Help -ShowWindow` unavailable**  
-This feature requires Windows PowerShell 5.1 as the host process. Use **Open Online Help** as a fallback.
+---
+
+## 📜 License
+Choose a license (e.g., MIT) and add `LICENSE` to the repo.
+
+---
+
+## 🙌 Credits
+- PowerShell help behavior: [`Get-Help`](https://learn.microsoft.com/powershell/module/microsoft.powershell.core/get-help) and [`Update-Help`](https://learn.microsoft.com/powershell/module/microsoft.powershell.core/update-help). citeturn11search61[0mturn11search52[0m
+- NuGet configuration and Package Source Mapping: `nuget.config` reference and package‑source mapping docs. citeturn5search35[0mturn5search47[0m
+
