@@ -19,7 +19,7 @@ A modern Windows desktop app to **explore, search, and inspect PowerShell comman
 - **Browse all commands** – cmdlets, functions, and aliases, grouped by module (with a special group for commands that have no module).
 - **Instant filtering** – search by command name, type, and module.
 - **Deep help view** – shows *Synopsis*, *Syntax* (all parameter sets), and *Examples* (when available) by calling `Get-Help` and `Get-Command` under the hood.  
-  > Tip: `Get-Help -Full` returns the most complete help object, including examples and parameter details. citeturn11search61
+  > Tip: `Get-Help -Full` returns the most complete help object, including examples and parameter details. 
 - **Parameter grid** – name, type, required/optional, position, pipeline input support, and aliases.
 - **One‑click actions** – copy name, copy syntax, open help window, open online docs.
 - **Export to CSV** – export the currently filtered command list.
