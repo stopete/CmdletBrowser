@@ -30,7 +30,7 @@ A modern Windows desktop app to **explore, search, and inspect PowerShell comman
 ## 🧰 Tech Stack
 
 - **.NET**: `net8.0-windows` WinForms
-- **PowerShell Hosting**: [`Microsoft.PowerShell.SDK`](https://www.nuget.org/packages/Microsoft.PowerShell.SDK/) (PowerShell 7 runtime and APIs) – the SDK targets modern .NET TFMs. citeturn4search8[0m[0m
+- **PowerShell Hosting**: [`Microsoft.PowerShell.SDK`](https://www.nuget.org/packages/Microsoft.PowerShell.SDK/) (PowerShell 7 runtime and APIs) – the SDK targets modern .NET TFMs. 
 
 ---
 
@@ -65,7 +65,7 @@ If you use **Package Source Mapping**, ensure `nuget.org` is mapped so core pack
   </packageSourceMapping>
 </configuration>
 ```
-NuGet only searches sources explicitly mapped for a package when Package Source Mapping is enabled; unmapped sources are **not considered**. citeturn5search47turn5search35
+NuGet only searches sources explicitly mapped for a package when Package Source Mapping is enabled; unmapped sources are **not considered**. 
 
 ### First‑run: make Examples appear
 `Get-Help` shows full examples only when local help files are installed. Run this once in **Windows PowerShell 5.1 (Run as Administrator)** to install updatable help for built‑in modules:
@@ -73,10 +73,10 @@ NuGet only searches sources explicitly mapped for a package when Package Source 
 ```powershell
 Update-Help -Module * -UICulture en-US -Force -ErrorAction SilentlyContinue
 ```
-- `Get-Help` uses local help files; otherwise it returns only basic, auto‑generated help. citeturn11search61[0m
-- `Update-Help` downloads and installs the newest help files; elevation is required on PowerShell 5.1. citeturn11search52[0m
+- `Get-Help` uses local help files; otherwise it returns only basic, auto‑generated help. 
+- `Update-Help` downloads and installs the newest help files; elevation is required on PowerShell 5.1.
 
-> Offline/isolated machines: use `Save-Help` on a connected machine, then `Update-Help -SourcePath` on the target. citeturn11search58
+> Offline/isolated machines: use `Save-Help` on a connected machine, then `Update-Help -SourcePath` on the target.
 
 ---
 
@@ -116,10 +116,10 @@ images/
 ## ❓ Troubleshooting
 
 - **Examples show “No examples available.”**  
-  Install/update local help (`Update-Help`), and the app will display examples that modules actually provide. `Get-Help -Full` exposes the examples collection used by the app. citeturn11search61[0mturn11search52[0m
+  Install/update local help (`Update-Help`), and the app will display examples that modules actually provide. `Get-Help -Full` exposes the examples collection used by the app. 
 
 - **Restore fails with “source(s) were not considered: nuget.org.”**  
-  You have Package Source Mapping enabled but didn’t map the package IDs to nuget.org in `nuget.config`. Add a mapping (e.g., `*` → nuget.org). citeturn5search47
+  You have Package Source Mapping enabled but didn’t map the package IDs to nuget.org in `nuget.config`. Add a mapping (e.g., `*` → nuget.org). 
 
 ---
 
@@ -129,6 +129,6 @@ Choose a license (e.g., MIT) and add `LICENSE` to the repo.
 ---
 
 ## 🙌 Credits
-- PowerShell help behavior: [`Get-Help`](https://learn.microsoft.com/powershell/module/microsoft.powershell.core/get-help) and [`Update-Help`](https://learn.microsoft.com/powershell/module/microsoft.powershell.core/update-help). citeturn11search61[0mturn11search52[0m
-- NuGet configuration and Package Source Mapping: `nuget.config` reference and package‑source mapping docs. citeturn5search35[0mturn5search47[0m
+- PowerShell help behavior: [`Get-Help`](https://learn.microsoft.com/powershell/module/microsoft.powershell.core/get-help) and [`Update-Help`](https://learn.microsoft.com/powershell/module/microsoft.powershell.core/update-help). 
+- NuGet configuration and Package Source Mapping: `nuget.config` reference and package‑source mapping docs.
 
