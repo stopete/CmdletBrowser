@@ -53,6 +53,10 @@
                             <Trigger Property="IsPressed" Value="True">
                                 <Setter Property="Background" Value="#0a4f7a"/>
                             </Trigger>
+                            <Trigger Property="IsEnabled" Value="False">
+                                <Setter Property="Background" Value="#2d2d30"/>
+                                <Setter Property="Foreground" Value="#888888"/>
+                            </Trigger>
                         </ControlTemplate.Triggers>
                     </ControlTemplate>
                 </Setter.Value>
@@ -107,7 +111,6 @@
             <Setter Property="Foreground" Value="#cfcfcf"/>
         </Style>
     </Window.Resources>
-
     <DockPanel>
         <!-- Top toolbar -->
         <StackPanel DockPanel.Dock="Top" Orientation="Horizontal" Margin="8" Background="#1e1e1e">
@@ -120,15 +123,14 @@
                       Checked="FilterOption_Changed" Unchecked="FilterOption_Changed"/>
             <Button x:Name="RefreshBtn" Content="Refresh" Click="RefreshBtn_Click"/>
             <Button x:Name="ExportBtn" Content="Export CSV..." Click="ExportBtn_Click"/>
+            <Button x:Name="DeleteModuleBtn" Content="Delete Module" Click="DeleteModuleBtn_Click" IsEnabled="False" Margin="16,4,4,4" Background="#c93c3c"/>
         </StackPanel>
-
         <!-- Status bar -->
         <StatusBar DockPanel.Dock="Bottom" Background="#2d2d30">
             <StatusBarItem>
                 <TextBlock x:Name="StatusText" Text="Ready" Foreground="#cfcfcf"/>
             </StatusBarItem>
         </StatusBar>
-
         <!-- Main content -->
         <Grid Margin="8">
             <Grid.ColumnDefinitions>
@@ -139,14 +141,12 @@
                 <RowDefinition Height="*"/>
                 <RowDefinition Height="240"/>
             </Grid.RowDefinitions>
-
             <!-- Left: module tree + command list -->
             <Grid Grid.Column="0" Grid.RowSpan="2" Margin="0,0,8,0">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="*"/>
                     <RowDefinition Height="*"/>
                 </Grid.RowDefinitions>
-
                 <Border Grid.Row="0" BorderBrush="#3c3c3c" BorderThickness="1" Margin="0,0,0,8">
                     <DockPanel>
                         <TextBlock DockPanel.Dock="Top" Text="Modules" Padding="8" FontWeight="Bold" Background="#2d2d30"/>
@@ -155,7 +155,6 @@
                                   SelectedItemChanged="ModuleTree_SelectedItemChanged"/>
                     </DockPanel>
                 </Border>
-
                 <Border Grid.Row="1" BorderBrush="#3c3c3c" BorderThickness="1">
                     <DockPanel>
                         <TextBlock DockPanel.Dock="Top" Text="Commands" Padding="8" FontWeight="Bold" Background="#2d2d30"/>
@@ -189,14 +188,12 @@
                     </DockPanel>
                 </Border>
             </Grid>
-
             <!-- Right Top: help panel -->
             <Grid Grid.Column="1" Grid.Row="0">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="Auto"/>
                     <RowDefinition Height="*"/>
                 </Grid.RowDefinitions>
-
                 <!-- Action bar -->
                 <DockPanel Grid.Row="0" Margin="0,0,0,6">
                     <StackPanel Orientation="Horizontal" DockPanel.Dock="Left" VerticalAlignment="Center">
@@ -210,7 +207,6 @@
                         <Button x:Name="HelpOnlineBtn" Content="Open Online Help" Click="HelpOnlineBtn_Click"/>
                     </StackPanel>
                 </DockPanel>
-
                 <!-- Synopsis + Syntax + Examples -->
                 <Grid Grid.Row="1">
                     <Grid.RowDefinitions>
@@ -218,18 +214,15 @@
                         <RowDefinition Height="Auto"/>
                         <RowDefinition Height="*"/>
                     </Grid.RowDefinitions>
-
                     <TextBlock Grid.Row="0" Text="Synopsis" FontWeight="Bold" Foreground="#9cdcfe"/>
                     <TextBox Grid.Row="1" x:Name="SynopsisBox"
                              IsReadOnly="True" TextWrapping="Wrap"
                              Margin="0,4,0,8" MinHeight="40" MaxHeight="80"/>
-
                     <Grid Grid.Row="2">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="*"/>
                             <ColumnDefinition Width="*"/>
                         </Grid.ColumnDefinitions>
-
                         <DockPanel Grid.Column="0" Margin="0,0,6,0">
                             <TextBlock DockPanel.Dock="Top" Text="Syntax" FontWeight="Bold"
                                        Margin="0,0,0,4" Foreground="#9cdcfe"/>
@@ -243,7 +236,6 @@
                                          Foreground="#ce9178"/>
                             </ScrollViewer>
                         </DockPanel>
-
                         <DockPanel Grid.Column="1" Margin="6,0,0,0">
                             <TextBlock DockPanel.Dock="Top" Text="Examples" FontWeight="Bold"
                                        Margin="0,0,0,4" Foreground="#9cdcfe"/>
@@ -260,7 +252,6 @@
                     </Grid>
                 </Grid>
             </Grid>
-
             <!-- Right Bottom: parameters grid -->
             <DockPanel Grid.Column="1" Grid.Row="1" Margin="0,8,0,0">
                 <TextBlock DockPanel.Dock="Top" Text="Parameters" FontWeight="Bold"
