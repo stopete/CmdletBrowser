@@ -7,7 +7,9 @@ A modern Windows desktop app to **explore, search, and inspect PowerShell comman
 
 ##
  📸 Screenshot
-<img width="1475" height="935" alt="Screenshot 2026-02-26 153801" src="https://github.com/user-attachments/assets/c43eb984-199d-4195-b4ef-fcb2acfe53bc" />
+
+<img width="1481" height="945" alt="image" src="https://github.com/user-attachments/assets/51233389-c9af-4601-8ea7-f82fd9261adc" />
+
 
 
 > 
