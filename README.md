@@ -26,7 +26,7 @@ A modern Windows desktop app to **explore, search, and inspect PowerShell comman
 - **One‑click actions** – copy name, copy syntax, open help window, open online docs.
 - **Export to CSV** – export the currently filtered command list.
 - **Responsive UI** – background runspaces for long operations keep the app snappy.
-
+- **Delete Module** – This application provides a safe and robust feature for managing PowerShell modules by intelligently distinguishing between user-installed "add-ons" and protected system components. The "Delete Module" button is automatically enabled only for modules located in user-specific directories (such as Documents, OneDrive, or Program Files), while remaining disabled for core system modules found in the C:\Windows\System32 path to prevent system instability. When a deletion is confirmed, the application launches a separate, hidden PowerShell process to forcefully remove the module's folder, a method that bypasses potential file locks from the main program. After a successful deletion, the entire module list is immediately and automatically refreshed to reflect the change.
 ---
 
 ## 🧰 Tech Stack
